@@ -1,41 +1,31 @@
-/**
- * FileName: UmsMember
- * Author:   #include
- * Date:     2019/12/1 20:00
- * Description:
- */
-package com.atguigu.gmall.user.bean;
+package com.atguigu.gmall.bean;
 
-import java.text.SimpleDateFormat;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
-/**
- *
- */
-public class UmsMember {
+public class UmsMember implements Serializable {
 
+    @Id
     private String id;
     private String memberLevelId;
     private String username;
     private String password;
     private String nickname;
     private String phone;
-    private Integer status;
+    private int status;
     private Date createTime;
-    private String createTimeStr;
     private String icon;
-    private String gender;
+    private int gender;
     private Date birthday;
-    private String birthdayStr;
     private String city;
     private String job;
     private String personalizedSignature;
-    private Integer sourceType;
-    private Integer integration;
-    private Integer growth;
-    private Integer luckeyCount;
-    private Integer historyIntegration;
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private int sourceType;
+    private int integration;
+    private int growth;
+    private int luckeyCount;
+    private int historyIntegration;
 
     public String getId() {
         return id;
@@ -85,11 +75,11 @@ public class UmsMember {
         this.phone = phone;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -101,14 +91,6 @@ public class UmsMember {
         this.createTime = createTime;
     }
 
-    public String getCreateTimeStr(){
-        if (createTime != null){
-            createTimeStr = sdf.format(createTime);
-        }
-        return createTimeStr;
-    }
-
-
     public String getIcon() {
         return icon;
     }
@@ -117,11 +99,11 @@ public class UmsMember {
         this.icon = icon;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -131,13 +113,6 @@ public class UmsMember {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
-    }
-
-    public String getBirthdayStr(){
-        if (birthday != null){
-            birthdayStr = sdf.format(birthday);
-        }
-        return birthdayStr;
     }
 
     public String getCity() {
@@ -164,43 +139,43 @@ public class UmsMember {
         this.personalizedSignature = personalizedSignature;
     }
 
-    public Integer getSourceType() {
+    public int getSourceType() {
         return sourceType;
     }
 
-    public void setSourceType(Integer sourceType) {
+    public void setSourceType(int sourceType) {
         this.sourceType = sourceType;
     }
 
-    public Integer getIntegration() {
+    public int getIntegration() {
         return integration;
     }
 
-    public void setIntegration(Integer integration) {
+    public void setIntegration(int integration) {
         this.integration = integration;
     }
 
-    public Integer getGrowth() {
+    public int getGrowth() {
         return growth;
     }
 
-    public void setGrowth(Integer growth) {
+    public void setGrowth(int growth) {
         this.growth = growth;
     }
 
-    public Integer getLuckeyCount() {
+    public int getLuckeyCount() {
         return luckeyCount;
     }
 
-    public void setLuckeyCount(Integer luckeyCount) {
+    public void setLuckeyCount(int luckeyCount) {
         this.luckeyCount = luckeyCount;
     }
 
-    public Integer getHistoryIntegration() {
+    public int getHistoryIntegration() {
         return historyIntegration;
     }
 
-    public void setHistoryIntegration(Integer historyIntegration) {
+    public void setHistoryIntegration(int historyIntegration) {
         this.historyIntegration = historyIntegration;
     }
 }
