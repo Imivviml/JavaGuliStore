@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.atguigu.gmall.manage.mapper.PmsProductSaleAttrMapper">
+    <select id="selectspuSaleAttrListCheckBySku" resultMap="selectspuSaleAttrListCheckBySkuMap">
+        SELECT
+            sa.id as sa_id, sav.id as sav_id, sa.*,sav.*, if(ssav.sku_id,1,0) as isChecked
+        FROM
+            pms_product_sale_attr sa
+        INNER JOIN pms_product_sale_attr_value sav ON sa.product_id = sav.product_id
+        AND sa.sale_attr_id = sav.sale_attr_id
+        AND sa.product_id = #{productId}
+        LEFT JOIN pms_sku_sale_attr_value ssav ON sav.id = ssav.sale_attr_value_id
+        AND ssav.sku_id = #{skuId}
+    </select>
+
+    <!--配置映射关系，集合中有集合参数，mybatis封装不上，必须制定每一个集合的主键id-->
+    <resultMap id="selectspuSaleAttrListCheckBySkuMap" type="com.atguigu.gmall.bean.PmsProductSaleAttr" autoMapping="true">
+
+        <!--指定外层集合的主键 id -->
+        <result column="sa_id" property="id"></result>
+
+        <collection property="spuSaleAttrValueList" ofType="com.atguigu.gmall.bean.PmsProductSaleAttrValue" autoMapping="true">
+            <!--指定内层集合的主键id-->
+            <result column="sav_id" property="id"></result>
+        </collection>
+    </resultMap>
+
+</mapper>

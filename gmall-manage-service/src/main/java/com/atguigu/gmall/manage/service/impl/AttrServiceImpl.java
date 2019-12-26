@@ -9,8 +9,10 @@ package com.atguigu.gmall.manage.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.gmall.bean.PmsBaseAttrInfo;
 import com.atguigu.gmall.bean.PmsBaseAttrValue;
+import com.atguigu.gmall.bean.PmsBaseSaleAttr;
 import com.atguigu.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.atguigu.gmall.manage.mapper.PmsBaseAttrValueMapper;
+import com.atguigu.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import com.atguigu.gmall.service.AttrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -29,6 +31,9 @@ public class AttrServiceImpl implements AttrService {
     @Autowired
     private PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
 
+    @Autowired
+    private PmsBaseSaleAttrMapper PmsBaseSaleAttrMapper;
+
     /**
      * 查询页面请求的商品属性列表
      * @param catalog3Id
@@ -39,6 +44,15 @@ public class AttrServiceImpl implements AttrService {
         PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
         List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
+
+        //将查询出来的平台属性值的集合封装进 pmsBaseAttrInfos 并返回个页面
+        for (PmsBaseAttrInfo baseAttrInfo : pmsBaseAttrInfos) {
+            PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
+            pmsBaseAttrValue.setAttrId(baseAttrInfo.getId());
+            List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+            baseAttrInfo.setAttrValueList(pmsBaseAttrValues);
+        }
+
         return pmsBaseAttrInfos;
     }
 
@@ -98,5 +112,15 @@ public class AttrServiceImpl implements AttrService {
         pmsBaseAttrValue.setAttrId(attrId);
         List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
         return pmsBaseAttrValues;
+    }
+
+
+    /**
+     * 查询商品的销售属性名称字典表
+     * @return
+     */
+    @Override
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
+        return PmsBaseSaleAttrMapper.selectAll();
     }
 }
