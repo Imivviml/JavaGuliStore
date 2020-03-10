@@ -15,7 +15,7 @@
 			<input type = "hidden" th:value="${skuSaleAttrHashJsonStr}" id="valuesSku"/>
 					<div class="min">
 						<ul class="header_ul_left">
-							<li class="glyphicon glyphicon-home"> <a href="shouye.html" class="aa">首页</a></li>
+							<li class="glyphicon glyphicon-home"> <a href="http://localhost:8084/index" class="aa">首页</a></li>
 							<li class="glyphicon glyphicon-map-marker"> <a href="javascript:;">北京</a>
 								<ol id="beijing">
 									<li style="background: red;"><a href="javascript:;" style="color: white;">北京</a></li>
@@ -57,7 +57,8 @@
 							</li>
 						</ul>
 						<ul class="header_ul_right">
-							<li style="border: 0;"><a href="../登录页面\index.html" class="aa">你好，请登录</a></li>
+							<input type="hidden" id="originUrl" name="originUrl" th:value="${originUrl}"/>
+							<li style="border: 0;"><a href="javascript:submitLogin();" class="aa">你好，请登录</a></li>
 							<li><a href="../注册页面\index.html" style="color: red;">免费注册</a> |</li>
 							<li><a href="javascript:;" class="aa">我的订单</a> |</li>
  
@@ -69,10 +70,7 @@
 					<div class="nav_top">
 						<div class="nav_top_one"><a href="#"><img src="/img/logo1.jpg"/></a></div>
 						<div class="nav_top_two"><input type="text"/><button>搜索</button></div>
-						<div class="nav_top_three"><a href="../JD_Shop/One_JDshop.html">我的购物车</a><span class="glyphicon glyphicon-shopping-cart"></span>
-							<div class="nav_top_three_1">
-								<img src="/img/44.png"/>购物车还没有商品，赶紧选购吧！
-							</div>
+						<div class="nav_top_three"><a href="http://localhost:8085/cartList">我的购物车</a><span class="glyphicon glyphicon-shopping-cart"></span>
 						</div>
 					</div>
 					<div class="nav_down">
@@ -200,7 +198,7 @@
 
 								</li>
 								<li>
-									<span>无货</span>， 此商品暂时售完
+									<span>有货</span>， 此商品有货
 								</li>
  
 							</ul>
@@ -261,8 +259,8 @@
 
 						<div class="box-btns clear">
 							<div class="box-btns-one">
-								<form id="itemForm" action="http://cart.gmall.com:8087/addToCart" method="post">
-									<input type="text" name="num" id=""  value="1"/>
+								<form id="itemForm" action="http://localhost:8085/addToCart" method="get">
+									<input type="text" name="quantity" id=""  value="1"/>
 									<input type="hidden" name="skuId"  th:value="${skuInfo?.id}" />
 
 									<div class="box-btns-one1">
@@ -1002,10 +1000,10 @@
 				<li class="li1"><a class="aaa" href="##">顶部</a></li>
 			</ul>
 		</div>
-		<div class="gouwuchexiaguo">
+		<!--<div class="gouwuchexiaguo">
 			<img src="/img/44.png" />
 			<span>购物车还没有商品，赶紧选购吧！</span>
-		</div>
+		</div>-->
 	</body>
 
 	<script src="/js/jquery1.9.js" type="text/javascript" charset="utf-8"></script>
@@ -1018,6 +1016,11 @@
             }
             $("#itemForm").submit();
         }
+
+        function submitLogin() {
+			var originUrl = $("#originUrl").val();
+			window.location.href = "http://localhost:8086/login?originUrl="+originUrl;
+		}
 
         function switchSkuId() {
             var skuSaleAttrValueJsonStr = $("#valuesSku").val();

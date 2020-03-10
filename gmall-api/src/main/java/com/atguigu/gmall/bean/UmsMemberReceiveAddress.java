@@ -1,6 +1,7 @@
 package com.atguigu.gmall.bean;
 
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 public class UmsMemberReceiveAddress implements Serializable {
@@ -10,7 +11,7 @@ public class UmsMemberReceiveAddress implements Serializable {
     private String memberId;
     private String name;
     private String phoneNumber;
-    private int defaultStatus;
+    private String defaultStatus;
     private String postCode;
     private String province;
     private String city;
@@ -49,11 +50,11 @@ public class UmsMemberReceiveAddress implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getDefaultStatus() {
+    public String getDefaultStatus() {
         return defaultStatus;
     }
 
-    public void setDefaultStatus(int defaultStatus) {
+    public void setDefaultStatus(String defaultStatus) {
         this.defaultStatus = defaultStatus;
     }
 

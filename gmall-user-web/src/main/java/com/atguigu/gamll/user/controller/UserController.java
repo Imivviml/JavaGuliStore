@@ -25,19 +25,6 @@ public class UserController {
     @Reference
     private UserService userService;
 
-    @RequestMapping("getAllUser")
-    @ResponseBody
-    public List<UmsMember> getAllUser(){
-        List<UmsMember> umsMembers = userService.getAllUser();
-        return umsMembers;
-    }
-
-    @RequestMapping("getReceiveAddressByMemberId")
-    @ResponseBody
-    public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId){
-        List<UmsMemberReceiveAddress> umsMemberReceiveAddresses =  userService.getReceiveAddressByMemberId(memberId);
-        return umsMemberReceiveAddresses;
-    }
 
     @RequestMapping("index")
     @ResponseBody

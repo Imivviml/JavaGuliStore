@@ -9,17 +9,21 @@ package com.atguigu.gmall.item.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
+import com.atguigu.gmall.annotations.LoginRequired;
 import com.atguigu.gmall.bean.PmsBaseSaleAttr;
 import com.atguigu.gmall.bean.PmsProductSaleAttr;
 import com.atguigu.gmall.bean.PmsSkuInfo;
 import com.atguigu.gmall.bean.PmsSkuSaleAttrValue;
 import com.atguigu.gmall.service.SkuService;
 import com.atguigu.gmall.service.SpuService;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +41,11 @@ public class ItemController {
     @Reference
     private SpuService spuService;
 
+    @LoginRequired(loginSucess = false)
     @RequestMapping("{skuId}.html")
-    public String item(@PathVariable String skuId, ModelMap map){
+    public String item(@PathVariable String skuId, ModelMap map, HttpServletRequest request, HttpServletResponse response){
+
+        //String remoteAddr = request.getRemoteAddr();
 
         PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId);
 
@@ -72,6 +79,9 @@ public class ItemController {
 
         //将hash表的键值对直接转换成 josn 直接放在页面上
         String skuSaleAttrHashJsonString = JSON.toJSONString(skuSaleAttrHash);
+        StringBuffer originUrl = request.getRequestURL();
+        map.put("originUrl",originUrl);
+
         map.put("skuSaleAttrHashJsonStr",skuSaleAttrHashJsonString);
 
         return "item";

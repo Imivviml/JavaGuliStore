@@ -14,11 +14,12 @@ import com.atguigu.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import com.atguigu.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import com.atguigu.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import com.atguigu.gmall.service.AttrService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  */
@@ -123,4 +124,22 @@ public class AttrServiceImpl implements AttrService {
     public List<PmsBaseSaleAttr> baseSaleAttrList() {
         return PmsBaseSaleAttrMapper.selectAll();
     }
+
+
+    /**
+     * 通过被检索商品的属性值id查询出被检索的商品的平台属性
+     * @param valueIds
+     * @return
+     */
+    @Override
+    public List<PmsBaseAttrInfo> getAttrValueByValueIdList(Set<String> valueIds) {
+
+        //将集合转换成用逗号分隔的字符串
+        String valueIdStr = StringUtils.join(valueIds, ",");//41,42,43
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.selectAttrValueByValueIdList(valueIdStr);
+
+        return pmsBaseAttrInfos;
+    }
+
+
 }

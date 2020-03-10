@@ -7,7 +7,15 @@ import java.util.List;
 
 public interface UserService {
 
-    List<UmsMember> getAllUser();
+    UmsMember login(UmsMember umsMember);
+
+    void addUserToken(String token, String memberId);
+
+    UmsMember addOtherUser(UmsMember umsMember);
+
+    UmsMember checkOtherUser(UmsMember umsCheck);
 
     List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId);
+
+    UmsMemberReceiveAddress getReceiveAddressById(String receiveAddressId,String memberId);
 }
